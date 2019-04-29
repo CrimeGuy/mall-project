@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openlab.dao.OrdersMapper">
+	<select id="getOrdersCarByC_id" parameterType="int" resultType="com.openlab.bean.Car">
+		select * from car where c_id = #{c_id}
+	</select>
+	
+	<insert id="addOrders" parameterType="com.openlab.bean.Orders">
+		insert into orders values (null,#{o_totalmoney},#{o_address},#{o_time},#{o_status},#{u_id})
+	</insert>
+	
+	<select id="getMaxO_id" resultType="int">
+		select * from orders where o_id = (select max(o_id) from orders);
+	</select>
+	
+	<insert id="addOrdersdetail" parameterType="com.openlab.bean.Ordersdetail">
+		insert into ordersdetail values (null,#{od_num},#{od_money},#{od_totalmoney},#{od_adddress},#{od_status},#{o_id},#{g_id})
+	</insert>
+	
+	<delete id="deleteOrdersCarByC_id" parameterType="int">
+		delete from car where c_id = #{c_id}
+	</delete>
+	<resultMap type="com.openlab.bean.Ordersdetail" id="getAllOrdersdetail">
+		<id column="od_id" property="od_id"></id>
+		<result column="od_num" property="od_num"/>	
+		<result column="od_money" property="od_money"/>
+		<result column="od_totalmoney" property="od_totalmoney"/>
+		<result column="od_adddress" property="od_adddress"/>
+		<result column="od_status" property="od_status"/>
+		<result column="o_id" property="o_id"/>
+		<result column="g_id" property="g_id"/>
+		<association property="goods" javaType="com.openlab.bean.Goods">
+			<id column="g_id" property="g_id"/>
+			<result column="g_name" property="g_name"/>
+			<result column="g_image" property="g_image"/>
+		</association>
+	</resultMap>
+	
+	<select id="getAllOrdersdetailByO_id" parameterType="int" resultMap="getAllOrdersdetail">
+		select od.*,g.g_id,g.g_name,g.g_image from ordersdetail od,goods g where od.o_id = #{o_id} and od.g_id = g.g_id
+	</select>
+	
+	<select id="getAllOrdersByU_id" parameterType="String" resultType="com.openlab.bean.Orders">
+		select * from orders where u_id = #{u_id}
+	</select>
+	
+	<delete id="deleteOrdersDetailByO_id" parameterType="int">
+		delete from ordersdetail where o_id = #{o_id} 
+	</delete>
+	
+	<delete id="deleteOrderByO_id" parameterType="int">
+		delete from orders where o_id = #{o_id}
+	</delete>
+</mapper>

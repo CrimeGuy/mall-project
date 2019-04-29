@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openlab.dao.UserUpdateMapper">
+	<update id="updatePwd" parameterType="String">
+		update user set u_pwd = #{u_pwd} where u_id = #{u_id}
+	</update> 
+	
+	<select id="findUserByU_id" parameterType="String" resultType="com.openlab.bean.User">
+		select * from user where u_id = #{u_id}
+	</select>
+	
+	<update id="updateName" parameterType="String">
+		update user set u_name = #{u_name} where u_id = #{u_id}
+	</update>
+	
+	<update id="updateUserPhone" parameterType="String">
+		update user set u_phone = #{u_phone} where u_id = #{u_id}
+	</update>
+	
+	<update id="updateUserAddress" parameterType="String">
+		update user set u_address = #{u_address} where u_id = #{u_id}
+	</update>
+</mapper>

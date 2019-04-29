@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openlab.dao.PrivilegeMapper">
+	<select id="getPrivilegeByR_id" parameterType="int" resultType="com.openlab.bean.Privilege">
+		select p.* from rp rp,role r,privilege p where r.r_id = rp.r_id and r.r_id = #{r_id} and rp.p_id = p.p_id
+	</select>
+</mapper>

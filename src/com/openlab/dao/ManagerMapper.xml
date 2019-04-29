@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openlab.dao.ManagerMapper">
+	<select id="findAllRole" resultType="com.openlab.bean.Role">
+		select * from role
+	</select>
+	
+	<select id="findAllUser" resultType="com.openlab.bean.User">
+		select * from user
+	</select>
+	
+	<select id="getPageGoods" parameterType="map" resultType="com.openlab.bean.Goods">
+		select * from goods limit #{currentPage},#{pageSize}
+	</select>
+	
+	<select id="findAllOrdersDetail" resultType="com.openlab.bean.Ordersdetail">
+		select * from ordersdetail
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from goods;
+	</select>
+</mapper>

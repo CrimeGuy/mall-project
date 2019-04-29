@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openlab.dao.RoleMapper">
+	<select id="findAllRole" resultType="com.openlab.bean.Role">
+		select * from role
+	</select>
+	
+	<select id="findUserByU_id" parameterType="String" resultType="com.openlab.bean.User">
+		select * from user where u_id = #{u_id}
+	</select>
+	
+	<update id="updateUserRole" parameterType="map">
+		update user set r_id = #{r_id} where u_id = #{u_id}
+	</update>
+	
+	<select id="findAllPrivilege" resultType="com.openlab.bean.Privilege">
+		select * from privilege 
+	</select>
+	
+	<insert id="addRole" parameterType="com.openlab.bean.Role">
+		insert into role values (null,#{r_name},#{r_describe})
+	</insert>
+	
+	<select id="getLastR_idInDb" resultType="int">
+		select r_id from role order by r_id desc limit 1;
+	</select>
+	
+	<insert id="addrRp" parameterType="map">
+		insert into rp values (#{r_id},#{p_id})
+	</insert>
+	
+	<delete id="deleteRpByR_id" parameterType="int">
+		delete from rp where r_id = #{r_id}
+	</delete>
+	
+	<update id="updateRoleDesc" parameterType="map">
+		update role set r_describe = #{r_describe} where r_id = #{r_id}
+	</update>
+	
+	<delete id="deleteRole" parameterType="int">
+		delete from role where r_id = #{r_id}
+	</delete>
+	
+	<select id="findUserByR_id" parameterType="int" resultType="com.openlab.bean.User">
+		select * from user where r_id = #{r_id} 
+	</select>
+</mapper>
